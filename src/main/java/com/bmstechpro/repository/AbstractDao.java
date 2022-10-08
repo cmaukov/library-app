@@ -14,6 +14,6 @@ public class AbstractDao {
         String username = "dbuser";
         String password = "dbuser";
 
-        return DriverManager.getConnection(url,username,password);
+        return DriverManager.getConnection(url, username, password);
     }
 }

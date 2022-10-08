@@ -60,4 +60,28 @@ public class BookDao extends AbstractDao implements Dao<Book> {
         }
         return books;
     }
+
+    @Override
+    public Book create(Book book) {
+        String sql = "INSERT INTO BOOK (TITLE) VALUES (?)";
+        try (Connection conn = getConnection();
+             // Here PreparedStatement will return the generated keys
+             PreparedStatement prepStmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+            prepStmt.setString(1, book.getTitle());
+            prepStmt.executeUpdate();
+            // Here we are getting the generated key from the database!
+            try (ResultSet genKeys = prepStmt.getGeneratedKeys()) {
+                if (genKeys.next()) {
+                    // Here we cannot use the column name and just have to use the first column
+                    book.setId(genKeys.getLong(1));
+                }
+            }
+
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return book;
+    }
 }

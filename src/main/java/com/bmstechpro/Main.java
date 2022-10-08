@@ -19,11 +19,11 @@ public class Main {
         new BookDao().findById(1).ifPresent(System.out::println);
 
         // Inserting a Book into the database
-        Book book = new Book();
-        book.setTitle("OCP Java Study Guide");
-        // Here we are getting the updated book (book id is updated by the method call to the database
-         book = new BookDao().create(book);
-        System.out.println(book);
+//        Book book = new Book();
+//        book.setTitle("OCP Java Study Guide");
+//        // Here we are getting the updated book (book id is updated by the method call to the database
+//         book = new BookDao().create(book);
+//        System.out.println(book);
 
 
     }

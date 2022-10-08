@@ -84,4 +84,21 @@ public class BookDao extends AbstractDao implements Dao<Book> {
 
         return book;
     }
+
+    @Override
+    public Book update(Book book) {
+        String sql = "UPDATE BOOK SET TITLE = ? WHERE ID = ?";
+        try (Connection conn = getConnection();
+             // Here PreparedStatement will return the generated keys
+             PreparedStatement prepStmt = conn.prepareStatement(sql)) {
+            prepStmt.setString(1, book.getTitle());
+            prepStmt.setLong(2,book.getId());
+            prepStmt.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return book;
+    }
 }

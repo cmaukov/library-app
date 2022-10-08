@@ -14,4 +14,6 @@ public interface Dao<T> {
     List<T> findAll();
 
     T create(T t);
+
+    T update(T t);
 }

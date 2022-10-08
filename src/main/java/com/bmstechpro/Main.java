@@ -6,77 +6,64 @@ package com.bmstechpro;
 
 import com.bmstechpro.model.Book;
 import com.bmstechpro.model.Card;
-import com.bmstechpro.model.CardEnum;
-import com.bmstechpro.model.Suit;
 import com.bmstechpro.repository.BookDao;
 
 import java.util.*;
+import java.util.concurrent.atomic.AtomicReference;
 
 public class Main {
     public static void main(String[] args) {
+
+        BookDao bookDao = new BookDao();
         // Getting all books from the database
-        List<Book> all = new BookDao().findAll();
+        List<Book> all = bookDao.findAll();
         all.forEach(System.out::println);
 
         // Getting a book by id
-        new BookDao().findById(1).ifPresent(System.out::println);
+        Book book = bookDao.findById(1).orElseThrow();
 
-        // Inserting a Book into the database
-//        Book book = new Book();
-//        book.setTitle("OCP Java Study Guide");
+//        book.setTitle("Effective Java - Second Edition");
+//
+//        // Updating book in our database
+//        bookDao.update(book);
+
+        System.out.println(book);
+
+
+//
+//        // Inserting a Book into the database
+//         book = new Book();
+//        book.setTitle("More Java");
 //        // Here we are getting the updated book (book id is updated by the method call to the database
-//         book = new BookDao().create(book);
+//         book = bookDao.create(book);
 //        System.out.println(book);
 
 
-//        int count = 0;
-//        boolean aceIsOne = true;
-//        for (int i = 0; i < 3; i++) {
-//            CardEnum card = CardEnum.getCard();
-//            System.out.println("You've got: " + card.name());
-//            switch (card) {
-//                case TWO -> count += 2;
-//                case THREE -> count += 3;
-//                case FOUR -> count += 4;
-//                case FIVE -> count += 5;
-//                case SIX -> count += 6;
-//                case SEVEN -> count += 7;
-//                case EIGHT -> count += 8;
-//                case NINE -> count += 9;
-//                case TEN, JACK, QUEEN, KING -> count += 10;
-//                case ACE -> {
-//                    if (aceIsOne) {
-//                        count += 1;
-//                    } else {
-//                        count += 11;
-//                    }
-//                }
-//                default -> throw new UnsupportedOperationException("unknown card");
+
+
+
+
+//
+//        // Creating a deck of cards
+
+//        int cardDeckIndex = 0;
+//        Card[] deckOfCards = new Card[52];
+//
+//        for (Suit suit : Suit.values()) {
+//            for (CardEnum cardEnum : CardEnum.values()) {
+//                deckOfCards[cardDeckIndex++] = new Card(cardEnum, suit);
 //            }
 //        }
-//        System.out.println("count: " + count);
-
-
-
-        // Creating a deck of cards
-        int cardDeckIndex = 0;
-        Card[] deckOfCards = new Card[52];
-
-        for (Suit suit : Suit.values()) {
-            for (CardEnum cardEnum : CardEnum.values()) {
-                deckOfCards[cardDeckIndex++] = new Card(cardEnum, suit);
-            }
-        }
-
-        // Shuffling the deck
-        Deque<Card> cardDeque = shuffleCards(deckOfCards);
-        // Drawing cards from the deck
-
-        for (int i = 0; i < 52; i++) {
-            Card card = cardDeque.poll();
-            System.out.println(card);
-            System.out.println("cards left: "+ cardDeque.size());
-        }
+//
+//        // Shuffling the deck
+//        Deque<Card> cardDeque = shuffleCards(deckOfCards);
+//        // Drawing cards from the deck
+//
+//        for (int i = 0; i < 52; i++) {
+//            Card card = cardDeque.poll();
+//            System.out.println(card);
+//            System.out.println("cards left: "+ cardDeque.size());
+//        }
 
 
     }

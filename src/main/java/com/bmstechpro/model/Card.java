@@ -4,29 +4,45 @@ package com.bmstechpro.model;
  * @author Konstantin Staykov
  */
 
-import java.util.Random;
+public final class Card {
+    private final CardEnum cardEnum;
+    private final Suit suit;
+    public Card(CardEnum cardEnum, Suit suit){
+        this.cardEnum = cardEnum;
+        this.suit = suit;
+    }
 
-public enum Card {
+    public CardEnum getCardEnum() {
+        return cardEnum;
+    }
 
-    TWO,
-    THREE,
-    FOUR,
-    FIVE,
-    SIX,
-    SEVEN,
-    EIGHT,
-    NINE,
-    TEN,
-    JACK,
-    KING,
-    QUEEN,
-    ACE;
+    public Suit getSuit() {
+        return suit;
+    }
 
-    public static Card getCard(){
-        Random random = new Random();
-        int i = random.nextInt(13) ;
-        Card[] values = Card.values();
-        return values[i];
+    @Override
+    public String toString() {
+        return "Card{" +
+                cardEnum.name() +
+                ", "+ suit.name() +
+                '}';
+    }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Card card = (Card) o;
+
+        if (cardEnum != card.cardEnum) return false;
+        return suit == card.suit;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = cardEnum.hashCode();
+        result = 31 * result + suit.hashCode();
+        return result;
     }
 }

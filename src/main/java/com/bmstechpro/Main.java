@@ -10,8 +10,7 @@ import com.bmstechpro.model.CardEnum;
 import com.bmstechpro.model.Suit;
 import com.bmstechpro.repository.BookDao;
 
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 public class Main {
     public static void main(String[] args) {
@@ -70,15 +69,19 @@ public class Main {
         }
 
         // Shuffling the deck
-        shuffleCards(deckOfCards);
+        Deque<Card> cardDeque = shuffleCards(deckOfCards);
+        // Drawing cards from the deck
 
-        // printing cards
-        for (Card card : deckOfCards) {
+        for (int i = 0; i < 52; i++) {
+            Card card = cardDeque.poll();
             System.out.println(card);
+            System.out.println("cards left: "+ cardDeque.size());
         }
+
+
     }
 
-    public static Card[] shuffleCards(Card[] deck) {
+    public static Deque<Card> shuffleCards(Card[] deck) {
         Random random = new Random();
         for (int i = 0; i <10000 ; i++) {
             int index1 = random.nextInt(52);
@@ -89,6 +92,6 @@ public class Main {
             deck[index2] = card1;
         }
 
-        return deck;
+        return new ArrayDeque<>(Arrays.asList(deck));
     }
 }

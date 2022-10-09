@@ -124,5 +124,20 @@ public class BookDao extends AbstractDao implements Dao<Book> {
         return records;
     }
 
+    @Override
+    public int delete(Book book) {
+        String sql = "DELETE FROM BOOK WHERE ID = ?";
+        int rowsAffected = 0;
+        try (Connection conn = getConnection();
+             PreparedStatement prepStmt = conn.prepareStatement(sql)) {
+            prepStmt.setLong(1, book.getId());
+            rowsAffected = prepStmt.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return rowsAffected;
+    }
+
 
 }

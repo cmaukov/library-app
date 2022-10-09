@@ -9,7 +9,6 @@ import com.bmstechpro.model.Card;
 import com.bmstechpro.repository.BookDao;
 
 import java.util.*;
-import java.util.concurrent.atomic.AtomicReference;
 
 public class Main {
     public static void main(String[] args) {
@@ -27,13 +26,16 @@ public class Main {
 //        // Updating book in our database
 //        bookDao.update(book);
 
-        System.out.println(book);
+//        System.out.println(book);
 
         // Updating rating
+//        all = bookDao.findAll();
+//        all.forEach(b->b.setRating(5));
+//        bookDao.update(all);
 
-        all = bookDao.findAll();
-        all.forEach(b->b.setRating(5));
-        bookDao.update(all);
+        // Delete a book
+//        int rowsAffected = bookDao.delete(book);
+//        System.out.println("deleted rows = " + rowsAffected);
 
 
 //
@@ -43,10 +45,6 @@ public class Main {
 //        // Here we are getting the updated book (book id is updated by the method call to the database
 //         book = bookDao.create(book);
 //        System.out.println(book);
-
-
-
-
 
 
 //
@@ -76,7 +74,7 @@ public class Main {
 
     public static Deque<Card> shuffleCards(Card[] deck) {
         Random random = new Random();
-        for (int i = 0; i <10000 ; i++) {
+        for (int i = 0; i < 10000; i++) {
             int index1 = random.nextInt(52);
             int index2 = random.nextInt(52);
             Card card1 = deck[index1];

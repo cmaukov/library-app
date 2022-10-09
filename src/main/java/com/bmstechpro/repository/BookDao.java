@@ -92,7 +92,7 @@ public class BookDao extends AbstractDao implements Dao<Book> {
              // Here PreparedStatement will return the generated keys
              PreparedStatement prepStmt = conn.prepareStatement(sql)) {
             prepStmt.setString(1, book.getTitle());
-            prepStmt.setLong(2,book.getId());
+            prepStmt.setLong(2, book.getId());
             prepStmt.executeUpdate();
 
         } catch (SQLException e) {
@@ -101,4 +101,28 @@ public class BookDao extends AbstractDao implements Dao<Book> {
 
         return book;
     }
+
+    @Override
+    public int[] update(List<Book> books) {
+        int[] records = {};
+        String sql = "UPDATE BOOK SET TITLE = ?, RATING = ? WHERE ID = ? ";
+
+        try (Connection conn = getConnection();
+             PreparedStatement prepStmt = conn.prepareStatement(sql)) {
+            for (Book book : books) {
+                prepStmt.setString(1, book.getTitle());
+                prepStmt.setInt(2, book.getRating());
+                prepStmt.setLong(3, book.getId());
+                prepStmt.addBatch();
+            }
+            records = prepStmt.executeBatch();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+
+        return records;
+    }
+
+
 }

@@ -8,6 +8,8 @@ public class Book {
     private long id;
     private String title;
 
+    private int rating;
+
     public long getId() {
         return id;
     }
@@ -24,6 +26,14 @@ public class Book {
         this.title = title;
     }
 
+    public int getRating() {
+        return rating;
+    }
+
+    public void setRating(int rating) {
+        this.rating = rating;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -32,6 +42,7 @@ public class Book {
         Book book = (Book) o;
 
         if (id != book.id) return false;
+        if (rating != book.rating) return false;
         return title.equals(book.title);
     }
 
@@ -39,6 +50,7 @@ public class Book {
     public int hashCode() {
         int result = (int) (id ^ (id >>> 32));
         result = 31 * result + title.hashCode();
+        result = 31 * result + rating;
         return result;
     }
 
@@ -47,6 +59,7 @@ public class Book {
         return "Book{" +
                 "id=" + id +
                 ", title='" + title + '\'' +
+                ", rating=" + rating +
                 '}';
     }
 }

@@ -29,6 +29,12 @@ public class Main {
 
         System.out.println(book);
 
+        // Updating rating
+
+        all = bookDao.findAll();
+        all.forEach(b->b.setRating(5));
+        bookDao.update(all);
+
 
 //
 //        // Inserting a Book into the database

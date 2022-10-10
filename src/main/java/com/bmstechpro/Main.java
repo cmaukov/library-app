@@ -19,7 +19,7 @@ public class Main {
         all.forEach(System.out::println);
 
         // Getting a book by id
-        Book book = bookDao.findById(1).orElseThrow();
+//        Book book = bookDao.findById(1).orElseThrow();
 
 //        book.setTitle("Effective Java - Second Edition");
 //
@@ -36,6 +36,7 @@ public class Main {
         // Delete a book
 //        int rowsAffected = bookDao.delete(book);
 //        System.out.println("deleted rows = " + rowsAffected);
+
 
 
 //

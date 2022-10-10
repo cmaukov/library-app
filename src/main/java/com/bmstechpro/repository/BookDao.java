@@ -7,12 +7,10 @@ package com.bmstechpro.repository;
 import com.bmstechpro.model.Book;
 
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
-public class BookDao extends AbstractDao implements Dao<Book> {
+public class BookDao extends JdbcQueryTemplate<Book> implements Dao<Book> {
     @Override
     public Optional<Book> findById(long id) {
         Optional<Book> book = Optional.empty();
@@ -38,28 +36,36 @@ public class BookDao extends AbstractDao implements Dao<Book> {
 
     @Override
     public List<Book> findAll() {
-
-        List<Book> books = Collections.emptyList();
-
         String sql = "SELECT * FROM BOOK";
-        try (Connection con = getConnection();
-             Statement stmt = con.createStatement();
-             ResultSet rset = stmt.executeQuery(sql)) {
-
-            books = new ArrayList<>();
-
-            while (rset.next()) {
-                Book book = new Book();
-                book.setId(rset.getLong("id"));
-                book.setTitle(rset.getString("title"));
-                books.add(book);
-            }
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return books;
+        return queryForList(sql);
     }
+
+
+//
+//    @Override
+//    public List<Book> findAll() {
+//
+//        List<Book> books = Collections.emptyList();
+//
+//        String sql = "SELECT * FROM BOOK";
+//        try (Connection con = getConnection();
+//             Statement stmt = con.createStatement();
+//             ResultSet rset = stmt.executeQuery(sql)) {
+//
+//            books = new ArrayList<>();
+//
+//            while (rset.next()) {
+//                Book book = new Book();
+//                book.setId(rset.getLong("id"));
+//                book.setTitle(rset.getString("title"));
+//                books.add(book);
+//            }
+//
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
+//        return books;
+//    }
 
     @Override
     public Book create(Book book) {
@@ -140,4 +146,12 @@ public class BookDao extends AbstractDao implements Dao<Book> {
     }
 
 
+    @Override
+    public Book mapItem(ResultSet resultSet) throws SQLException {
+        Book book = new Book();
+        book.setId(resultSet.getLong("id"));
+        book.setTitle(resultSet.getString("title"));
+        book.setRating(resultSet.getInt("rating"));
+        return book;
+    }
 }
